@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>A Basic HTML5 Template</title>
+  <title>Breeding Calculator</title>
   <meta name="description" content="A simple HTML5 Template for new projects.">
   <meta name="author" content="SitePoint">
 
@@ -25,7 +25,216 @@
 
 <body>
   <!-- your content here... -->
-  Legendary Breeding Calculator
-  <script src="js/scripts.js"></script>
+  <center>
+  <h1>Legendary Breeding Calculator</h1>
+  <br>
+  <label for="cars">select Dragon to breed:</label>
+
+<select name="breed_target" id="breed_target">
+</select>
+<button onclick="calc_dragons()">Go</button>
+
+<br>
+<br>
+<div id="result" style="width:500px">
+
+  <table border=1px style="width:100%">
+   <tr>
+     <td id="target_banner" style="text-align: center"></td>
+   </tr>
+  </table>
+<br>
+
+<table id="result_table" border=1px style="width:100%" >
+ <tr>
+   <td>Dragon 1</td>
+   <td>Dragon 2</td>
+ </tr>
+</table>
+
+</div>
+  </center>
+
+  <script>
+    var select = document.getElementById("breed_target");
+
+    var elements = {
+      1:"Nature",
+      2:"Fire",
+      3:"Water",
+      4:"Electric",
+      5:"Earth",
+      6:"Metal",
+      7:"Psychic",
+      8:"Light",
+      9:"Dark",
+    };
+
+    var elements_img = {
+      1:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/Nature.webp'>",
+      2:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/Fire.webp'>",
+      3:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/Water.webp'>",
+      4:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/Electric.webp'>",
+      5:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/Earth.webp'>",
+      6:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/Metal.webp'>",
+      7:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/Psychic.webp'>",
+      8:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/Light.webp'>",
+      9:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/Dark.webp'>",
+    };
+
+    var elements_img_tiny = {
+      1:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/tiny/Nature.png'>",
+      2:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/tiny/Fire.png'>",
+      3:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/tiny/Water.png'>",
+      4:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/tiny/Electric.png'>",
+      5:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/tiny/Earth.png'>",
+      6:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/tiny/Metal.png'>",
+      7:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/tiny/Psychic.png'>",
+      8:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/tiny/Light.png'>",
+      9:"<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/elements/tiny/Dark.png'>",
+    };
+
+
+
+    // Nature Fire  Water Electric  Earth Metal Psychic Light Dark
+    // 1      2     3     4         5     6     7       8     9
+    var breedable_dragons = {
+      "Lasvig":[1,8],
+      "Pyralis":[2,8],
+      "Genie":[3,8],
+      "Reyne":[4,8],
+      "Silent Soil":[5,8],
+      "Unicorn":[6,8],
+      "Themis":[7,8],
+      "Brnacle Goose":[1,9],
+      "Hades":[2,9],
+      "Anubis":[3,9],
+      "Nix":[4,9],
+      "Kur":[5,9],
+      "Asura":[6,9],
+      "Dark Qilin":[7,9],
+    };
+
+    const breedable_legendary_dragons = Object.keys(breedable_dragons);
+
+    for(var i = 0; i < breedable_legendary_dragons.length; i++) {
+        var opt = breedable_legendary_dragons[i];
+        var el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        breed_target.appendChild(el);
+    }
+
+    var epic_dragons = {
+      "Red-violet":[1,2],
+      "Enki":[1,3],
+      "Jack'O'Drak":[1,2],
+      "Fairy":[1,4],
+      "Core":[2,3],
+      "Xmas":[1,3],
+      "Ammit":[1,5],
+      "Carboro":[1,3],
+      "Cernunnos":[1,6],
+      "Velociraptor":[2,4],
+      "Gearing":[1,6],
+      "Oogway":[1,7],
+      "Sword":[2,5],
+      "Ladon":[1,3],
+      "Aurita":[3,4],
+      "Evil Beast":[2,6],
+      "Innsmouth":[3,5],
+      "Drarus":[3,5],
+      "Valravn":[2,7],
+      "Canoe":[3,6],
+      "Ruby":[2,5],
+      "Ceratopsia":[4,5],
+      "Sapphire":[3,5],
+      "Storm":[3,7],
+      "Plough":[4,6],
+      "Burns":[2,6],
+      "Comet":[5,6],
+      "Flash":[4,7],
+      "Emerald":[1,5],
+      "Triceratops":[5,7],
+      "Amethyst":[5,7],
+      "Keydorah":[6,7],
+      "Jackalope":[1,7],
+      "Joker":[6,7],
+      "Arc":[5,4],
+      "Batwing":[6,7],
+      "Topaz":[5,4],
+    };
+function print_row(left,right) {
+  // Find a <table> element with id="myTable":
+  var table = document.getElementById("result_table");
+  var row = table.insertRow(0);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+
+  var left_content = ""
+  for (let i = 0; i < left.length; i++) {
+  left_content += left[i] + elements_img_tiny[epic_dragons[left[i]][0]] + elements_img_tiny[epic_dragons[left[i]][1]] + "<br>";
+  }
+
+  var right_content = ""
+  for (let i = 0; i < right.length; i++) {
+  right_content += right[i] + elements_img_tiny[epic_dragons[right[i]][0]] + elements_img_tiny[epic_dragons[right[i]][1]] + "<br>";
+  }
+
+  cell1.innerHTML = left_content;
+  cell2.innerHTML = right_content;
+}
+
+function clear_table() {
+  var result_table = document.getElementById("result_table");
+  result_table.innerHTML = "";
+}
+
+function remove_item(list,item){
+  const index = list.indexOf(item);
+  if (index > -1) {
+    list.splice(index, 1);
+  }
+  return list
+}
+
+function calc_dragons() {
+  var target_dragon = document.getElementById("breed_target").value;
+  document.getElementById("target_banner").innerHTML = "<img src='https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/img/dragons/"+target_dragon.replace(" ","_")+"_index.webp'><br>"+elements_img[breedable_dragons[target_dragon][0]]+elements_img[breedable_dragons[target_dragon][1]];
+
+  var unshared_element = breedable_dragons[target_dragon][0]
+  if (breedable_dragons[target_dragon][1] == 8) {
+    set = [4,5,6];
+  }
+  if (breedable_dragons[target_dragon][1] == 9) {
+    set = [1,2,3,7];
+  }
+  // remove unshared_element from set
+  set = remove_item(set,unshared_element)
+
+  clear_table()
+  for (let i = 0; i < set.length; i++) {
+    var shared_element = set[i];
+    var epic_shared_element = []
+    for (const [key, value] of Object.entries(epic_dragons)) {
+        if ((value[0]==shared_element) || (value[1]==shared_element)){
+          epic_shared_element.push(key);
+        }
+    }
+    var epic_mains = []
+    for (const dragon of epic_shared_element) {
+        if ((epic_dragons[dragon][0]==unshared_element) || (epic_dragons[dragon][1]==unshared_element)){
+          epic_mains.push(dragon);
+          epic_shared_element = remove_item(epic_shared_element,dragon)
+        }
+    }
+    print_row(epic_mains,epic_shared_element)
+  }
+
+
+
+  }
+</script>
+
 </body>
 </html>
