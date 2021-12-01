@@ -16,12 +16,21 @@
 
 
   <style>
+    @font-face { font-family: Stroke; src: url('https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/fonts/Stroke.otf'); }
+
     @media (aspect-ratio > 1/1.3) {
       div.main {
         width: 500px;
       }
 
-     @font-face { font-family: Stroke; src: url('https://raw.githubusercontent.com/Zabz1/BreedingCalculator/main/fonts/Stroke.otf'); }
+      }
+
+    @media (aspect-ratio < 1/1.3) {
+      span{
+        display:none;
+      }
+    }
+
   </style>
 </head>
 
@@ -29,8 +38,7 @@
 
   <center>
   <div class="main" >
-
-  <span style="font-family:Stroke;font-size: 250%">Legendary Breeding Calculator</span>
+  <span style="font-family:Stroke;font-size: 250%;">Legendary Breeding Calculator</span>
 <select style="width:100%;text-align:center;font-size:18px;" name="breed_target" id="breed_target" onchange="calc_dragons()">
 <option selected hidden>select Legendary Dragon to breed</option>
 </select>
