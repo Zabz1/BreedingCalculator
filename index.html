@@ -6,51 +6,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Breeding Calculator</title>
-  <meta name="description" content="A simple HTML5 Template for new projects.">
-  <meta name="author" content="SitePoint">
-
-  <meta property="og:title" content="A Basic HTML5 Template">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.sitepoint.com/a-basic-html5-template/">
-  <meta property="og:description" content="A simple HTML5 Template for new projects.">
-  <meta property="og:image" content="image.png">
+  <meta name="description" content="A simple Breeding Calculator for Legendary Dragons in Dragon Tamer">
+  <meta name="author" content="Zabz1">
 
   <link rel="icon" href="/favicon.ico">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <style>
 
+  </style>
 </head>
 
-<body>
-  <!-- your content here... -->
+<body style="font-family:verdana">
+
   <center>
+  <div style="width:600px">
+
   <h1>Legendary Breeding Calculator</h1>
-  <br>
-  <label for="cars">select Dragon to breed:</label>
-
-<select name="breed_target" id="breed_target">
+<select style="width:100%;text-align:center" name="breed_target" id="breed_target" onchange="calc_dragons()">
+<option selected hidden>select Legendary Dragon to breed</option>
 </select>
-<button onclick="calc_dragons()">Go</button>
-
 <br>
-<br>
-<div id="result" style="width:500px">
 
-  <table border=1px style="width:100%">
+<div id="result" style="width:100%">
+
+  <table id="target_table" style="width:100%; border-collapse: collapse">
    <tr>
      <td id="target_banner" style="text-align: center"></td>
    </tr>
   </table>
-<br>
 
-<table id="result_table" border=1px style="width:100%" >
- <tr>
-   <td>Dragon 1</td>
-   <td>Dragon 2</td>
- </tr>
+
+<table id="result_table"  style="width:100%; border-collapse: collapse" >
+
 </table>
+
+</div>
 
 </div>
   </center>
@@ -166,23 +158,29 @@
     };
 function print_row(left,right) {
   // Find a <table> element with id="myTable":
+
+  var target_table = document.getElementById("target_table");
   var table = document.getElementById("result_table");
   var row = table.insertRow(0);
   var cell1 = row.insertCell(0);
   var cell2 = row.insertCell(1);
 
-  var left_content = ""
+  var left_content = "<table style='width:100%'><tr>"
   for (let i = 0; i < left.length; i++) {
-  left_content += left[i] + elements_img_tiny[epic_dragons[left[i]][0]] + elements_img_tiny[epic_dragons[left[i]][1]] + "<br>";
+  left_content += "<td>"+left[i] +"</td><td style='text-align:right'>"+ elements_img_tiny[epic_dragons[left[i]][0]] + elements_img_tiny[epic_dragons[left[i]][1]] + "</td><tr>";
   }
 
-  var right_content = ""
+  var right_content = "<table style='width:100%'><tr>"
   for (let i = 0; i < right.length; i++) {
-  right_content += right[i] + elements_img_tiny[epic_dragons[right[i]][0]] + elements_img_tiny[epic_dragons[right[i]][1]] + "<br>";
+  right_content += "<td>"+right[i] +"</td><td style='text-align:right'>"+ elements_img_tiny[epic_dragons[right[i]][0]] + elements_img_tiny[epic_dragons[right[i]][1]] + "</td><tr>";
   }
 
+  target_table.style.background = "#949494";
+  row.style.border = "solid #949494";
   cell1.innerHTML = left_content;
+  cell1.style.border = "solid #949494";
   cell2.innerHTML = right_content;
+  cell2.style.border = "solid #949494";
 }
 
 function clear_table() {
