@@ -237,12 +237,21 @@ function calc_dragons() {
         }
     }
     var epic_mains = []
+    var remove_list = []
+
     for (const dragon of epic_shared_element) {
+        console.log("comparing "+dragon+" & "+ unshared_element);
         if ((epic_dragons[dragon][0]==unshared_element) || (epic_dragons[dragon][1]==unshared_element)){
           epic_mains.push(dragon);
-          epic_shared_element = remove_item(epic_shared_element,dragon)
+          remove_list.push(dragon);
         }
     }
+
+    for (var x of remove_list){
+      epic_shared_element = remove_item(epic_shared_element,x)
+      console.log(i);
+    }
+
     print_row(epic_mains,epic_shared_element)
   }
 
